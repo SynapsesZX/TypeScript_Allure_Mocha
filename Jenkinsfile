@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        ANDROID_HOME = "C:\\Users\\igorz\\AppData\\Local\\Android\\Sdk"
+        PATH = "${env.PATH};${ANDROID_HOME}\\platform-tools"
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -14,10 +19,16 @@ pipeline {
             }
         }
 
+        stage('Verify ADB Connection') {
+            steps {
+                bat 'adb devices'
+            }
+        }
+
         stage('Start Appium Server') {
             steps {
-                bat 'start /b appium'  // чтобы запустить Appium в фоне на Windows
-                sleep 10
+                bat 'start /b appium' 
+                sleep time: 10, unit: 'SECONDS'
             }
         }
 
