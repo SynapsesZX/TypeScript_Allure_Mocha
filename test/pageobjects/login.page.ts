@@ -3,8 +3,7 @@ import { expect } from "@wdio/globals";
 import Page from "./page";
 
 const locators = {
-  createNewAccountButton:
-    'android=new UiSelector().description("Log into another account")',
+  createNewAccountButton: "~Create new account",
   usernameInputField:
     '//android.widget.FrameLayout[@resource-id="com.instagram.android:id/layout_container_main"]/android.widget.FrameLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText',
   passwordInputField:
@@ -12,6 +11,8 @@ const locators = {
   loginPlaceholder:
     '//android.view.View[@content-desc="Username, email or mobile number"]',
   passwordPlaceholder: '//android.view.View[@content-desc="Password"]',
+  mobileNumberInputField:
+    'android=new UiSelector().className("android.widget.EditText")',
 };
 
 class LoginPage extends Page {
@@ -23,6 +24,12 @@ class LoginPage extends Page {
 
   public async enterUserNameInputField(value: string): Promise<void> {
     const inputField = $(locators.usernameInputField);
+    await inputField.waitForDisplayed({ timeout: 10000 });
+    await inputField.setValue(value);
+  }
+
+  public async enterMobileNumberInputField(value: string): Promise<void> {
+    const inputField = $(locators.mobileNumberInputField);
     await inputField.waitForDisplayed({ timeout: 10000 });
     await inputField.setValue(value);
   }
