@@ -26,11 +26,12 @@ pipeline {
         }
 
         stage('Start Appium Server') {
-            steps {
-                echo 'Starting Appium server...'
-                bat 'powershell -Command "Start-Process appium -ArgumentList \'--port 4723\' -NoNewWindow -RedirectStandardOutput appium.log -RedirectStandardError appium.log"'
-            }
-        }
+    steps {
+        echo 'Starting Appium server...'
+        bat 'start "" /B appium --port 4723 > appium.log 2>&1'
+        sleep time: 30, unit: 'SECONDS'
+    }
+}
 
         stage('Wait for Appium') {
             steps {
