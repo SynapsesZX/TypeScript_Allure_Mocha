@@ -45,11 +45,6 @@ pipeline {
             }
         }
 
-        stage('Stop Appium Server') {
-            steps {
-                echo 'Stopping Appium server...'
-                bat 'taskkill /F /IM node.exe'
-            }
-        }
+        
     }
 }

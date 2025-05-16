@@ -4,7 +4,7 @@ import Page from "./page";
 
 const locators = {
   createNewAccountButton:
-    'android=new UiSelector().description("Войти в другой аккаунт")',
+    '//android.widget.Button[@content-desc="Войти в другой аккаунт"]',
   usernameInputField:
     '//android.widget.FrameLayout[@resource-id="com.instagram.android:id/layout_container_main"]/android.widget.FrameLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText',
   passwordInputField:
