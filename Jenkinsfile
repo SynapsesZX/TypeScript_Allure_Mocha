@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/SynapsesZX/TypeScript_Allure_Mocha.git'
+                git branch: 'main', url: 'https://github.com/SynapsesZX/TypeScript_Allure_Mocha.git'
             }
         }
 
@@ -16,8 +16,7 @@ pipeline {
 
         stage('Start Appium Server') {
             steps {
-                
-                bat 'appium &'
+                bat 'start /b appium'  // чтобы запустить Appium в фоне на Windows
                 sleep 10
             }
         }
@@ -30,7 +29,6 @@ pipeline {
 
         stage('Publish Reports') {
             steps {
-                
                 allure([
                     includeProperties: false,
                     jdk: '',
