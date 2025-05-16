@@ -1,0 +1,36 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# TypeScript
+dist/
+build/
+*.tsbuildinfo
+
+# WebDriverIO
+allure-results/
+allure-report/
+reports/
+
+# VS Code
+.vscode/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# MacOS
+.DS_Store
+
+# Appium
+*.appiumlog
+
+# Temporary files
+*.tmp
+*.temp
