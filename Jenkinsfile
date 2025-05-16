@@ -28,8 +28,7 @@ pipeline {
         stage('Start Appium Server') {
             steps {
                 echo 'Starting Appium server...'
-                
-                bat 'start "" cmd /c "appium"'
+                bat 'start /B appium --port 4723'
                 sleep time: 10, unit: 'SECONDS'
             }
         }
@@ -49,13 +48,12 @@ pipeline {
                 ])
             }
         }
-    }
 
-    post {
-        always {
-            echo 'Killing Appium server (if still running)...'
-            
-            bat 'taskkill /F /IM node.exe /T || exit 0'
+        stage('Stop Appium Server') {
+            steps {
+                echo 'Stopping Appium server...'
+                bat 'taskkill /F /IM node.exe'
+            }
         }
     }
 }
