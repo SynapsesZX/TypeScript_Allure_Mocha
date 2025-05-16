@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/your/repo.git'
+                git 'https://github.com/SynapsesZX/TypeScript_Allure_Mocha.git'
             }
         }
 
@@ -24,7 +24,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                sh 'npx wdio run wdio.conf.js'
+                bat 'npx wdio run wdio.conf.js'
             }
         }
 
