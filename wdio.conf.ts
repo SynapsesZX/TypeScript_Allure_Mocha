@@ -59,6 +59,9 @@ export const config: WebdriverIO.Config = {
       "appium:platformVersion": "9",
       "appium:automationName": "UiAutomator2",
       "appium:appPackage": "com.instagram.android",
+
+      "appium:language": "en",
+      "appium:locale": "EN",
     },
   ],
 
