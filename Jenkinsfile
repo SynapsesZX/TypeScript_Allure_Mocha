@@ -26,12 +26,12 @@ pipeline {
         }
 
         stage('Start Appium Server') {
-            steps {
-                echo 'Starting Appium server...'
-                bat 'start /B appium --port 4723'
-                sleep time: 10, unit: 'SECONDS'
-            }
-        }
+    steps {
+        echo 'Starting Appium server...'
+        bat 'start "" /B appium --port 4723 > appium.log 2>&1'
+        sleep time: 10, unit: 'SECONDS'
+    }
+}
 
         stage('Run Tests') {
             steps {
