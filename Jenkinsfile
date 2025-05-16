@@ -25,36 +25,9 @@ pipeline {
             }
         }
 
-        stage('Start Appium Server') {
-    steps {
-        echo 'Starting Appium server...'
-        bat 'start "" /B appium --port 4723 > appium.log 2>&1'
-        sleep time: 30, unit: 'SECONDS'
-    }
-}
+        
 
-        stage('Wait for Appium') {
-            steps {
-                script {
-                    def maxAttempts = 10
-                    def attempt = 0
-                    def isAppiumUp = false
-                    while (attempt < maxAttempts && !isAppiumUp) {
-                        try {
-                            bat 'powershell -Command "Invoke-RestMethod -Uri http://localhost:4723/status"'
-                            isAppiumUp = true
-                        } catch (Exception e) {
-                            echo "Appium not ready yet, retrying..."
-                            sleep(time: 3, unit: 'SECONDS')
-                            attempt++
-                        }
-                    }
-                    if (!isAppiumUp) {
-                        error "Appium server did not start within expected time"
-                    }
-                }
-            }
-        }
+        
 
         stage('Run Tests') {
             steps {
