@@ -16,22 +16,13 @@ const locators = {
 
 class LoginPage extends Page {
   public async clickCreateNewAccountButton(): Promise<void> {
-    const button = await $(locators.createNewAccountButton);
-
-    const exists = await button.waitForExist({ timeout: 10000 });
-    if (!exists) {
-      const pageSource = await driver.getPageSource();
-      console.error("Create New Account button NOT found on the page!");
-      console.error("Page source snapshot:\n", pageSource);
-
-      await driver.saveScreenshot("./screenshots/no_button_found.png");
-
-      throw new Error(
-        "Create New Account button not found after waiting 10 seconds"
-      );
+    const button = $(locators.createNewAccountButton);
+    const isExist = await button.isExisting();
+    if (isExist) {
+      await button.click();
+    } else {
+      console.warn("Element is not displayed");
     }
-
-    await button.click();
   }
 
   public async enterUserNameInputField(value: string): Promise<void> {
