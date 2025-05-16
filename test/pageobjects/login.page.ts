@@ -17,7 +17,7 @@ const locators = {
 class LoginPage extends Page {
   public async clickCreateNewAccountButton(): Promise<void> {
     const button = $(locators.createNewAccountButton);
-    await button.waitForDisplayed({ timeout: 2000 });
+    await button.waitForDisplayed({ timeout: 10000 });
     await button.click();
   }
 
