@@ -27,7 +27,9 @@ pipeline {
 
         stage('Start Appium Server') {
             steps {
-                bat 'start /b appium' 
+                echo 'Starting Appium server...'
+                
+                bat 'start "" cmd /c "appium"'
                 sleep time: 10, unit: 'SECONDS'
             }
         }
@@ -46,6 +48,14 @@ pipeline {
                     results: [[path: 'allure-results']]
                 ])
             }
+        }
+    }
+
+    post {
+        always {
+            echo 'Killing Appium server (if still running)...'
+            
+            bat 'taskkill /F /IM node.exe /T || exit 0'
         }
     }
 }
