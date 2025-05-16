@@ -61,7 +61,7 @@ export const config: WebdriverIO.Config = {
       "appium:appPackage": "com.instagram.android",
 
       "appium:language": "en",
-      "appium:locale": "EN",
+      "appium:locale": "US",
     },
   ],
 
