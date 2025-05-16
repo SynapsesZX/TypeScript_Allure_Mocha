@@ -4,7 +4,7 @@ import Page from "./page";
 
 const locators = {
   createNewAccountButton:
-    '//android.widget.Button[@content-desc="Log into another account"]',
+    'android=new UiSelector().description("Log into another account")',
   usernameInputField:
     '//android.widget.FrameLayout[@resource-id="com.instagram.android:id/layout_container_main"]/android.widget.FrameLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText',
   passwordInputField:
@@ -17,17 +17,13 @@ const locators = {
 class LoginPage extends Page {
   public async clickCreateNewAccountButton(): Promise<void> {
     const button = $(locators.createNewAccountButton);
-    const isExist = await button.isExisting();
-    if (isExist) {
-      await button.click();
-    } else {
-      console.warn("Element is not displayed");
-    }
+    await button.waitForDisplayed({ timeout: 10000 });
+    await button.click();
   }
 
   public async enterUserNameInputField(value: string): Promise<void> {
     const inputField = $(locators.usernameInputField);
-    await inputField.waitForDisplayed();
+    await inputField.waitForDisplayed({ timeout: 10000 });
     await inputField.setValue(value);
   }
 
@@ -37,14 +33,14 @@ class LoginPage extends Page {
     expectedValue: string
   ): Promise<void> {
     const element = $(locator);
-    await element.waitForDisplayed();
+    await element.waitForDisplayed({ timeout: 10000 });
     const actualValue = await element.getAttribute(attribute);
     expect(actualValue).toBe(expectedValue);
   }
 
   public async enterPaswwordInputField(value: string): Promise<void> {
     const inputField = $(locators.passwordInputField);
-    await inputField.waitForDisplayed();
+    await inputField.waitForDisplayed({ timeout: 10000 });
     await inputField.setValue(value);
   }
 }
