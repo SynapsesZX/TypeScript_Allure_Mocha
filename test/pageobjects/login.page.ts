@@ -4,14 +4,14 @@ import Page from "./page";
 
 const locators = {
   createNewAccountButton:
-    '//android.widget.Button[@content-desc="Войти в другой аккаунт"]/android.view.ViewGroup',
+    '//android.widget.Button[@content-desc="Log into another account"]',
   usernameInputField:
     '//android.widget.FrameLayout[@resource-id="com.instagram.android:id/layout_container_main"]/android.widget.FrameLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText',
   passwordInputField:
     '//android.widget.FrameLayout[@resource-id="com.instagram.android:id/layout_container_main"]/android.widget.FrameLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.EditText',
   loginPlaceholder:
-    '//android.view.View[@content-desc="Имя пользователя, эл. адрес или мобильный телефон"]',
-  passwordPlaceholder: '//android.view.View[@content-desc="Пароль"]',
+    '//android.view.View[@content-desc="Username, email or mobile number"]',
+  passwordPlaceholder: '//android.view.View[@content-desc="Password"]',
 };
 
 class LoginPage extends Page {

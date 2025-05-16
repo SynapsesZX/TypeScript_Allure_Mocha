@@ -8,13 +8,13 @@ describe("Instagram Login Screen ", () => {
     await LoginPage.checkPlaceholder(
       locators.loginPlaceholder,
       "text",
-      "Имя пользователя, эл. адрес или мобильный телефон"
+      "Username, email or mobile number"
     );
     await LoginPage.enterUserNameInputField("Hello");
     await LoginPage.checkPlaceholder(
       locators.passwordPlaceholder,
       "text",
-      "Пароль"
+      "Password"
     );
     await LoginPage.enterPaswwordInputField("gfhjfghj!@43545");
 
