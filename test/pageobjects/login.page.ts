@@ -3,7 +3,8 @@ import { expect } from "@wdio/globals";
 import Page from "./page";
 
 const locators = {
-  createNewAccountButton: "~Create new account",
+  createNewAccountButton:
+    '//android.view.View[@content-desc="Create new account"]',
   usernameInputField:
     '//android.widget.FrameLayout[@resource-id="com.instagram.android:id/layout_container_main"]/android.widget.FrameLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText',
   passwordInputField:
