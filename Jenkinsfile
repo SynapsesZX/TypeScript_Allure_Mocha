@@ -13,6 +13,14 @@ pipeline {
             }
         }
 
+        stage('Clean Allure Results') {
+            steps {
+                
+                bat 'if exist allure-results rmdir /s /q allure-results'
+                bat 'mkdir allure-results'
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
                 bat 'npm install'
@@ -24,10 +32,6 @@ pipeline {
                 bat 'adb devices'
             }
         }
-
-        
-
-        
 
         stage('Run Tests') {
             steps {
@@ -44,7 +48,5 @@ pipeline {
                 ])
             }
         }
-
-        
     }
 }
