@@ -153,7 +153,17 @@ export const config: WebdriverIO.Config = {
 
   //
   // =====
-  // Hooks
+
+  afterTest: async function (): Promise<void> {
+    try {
+      await browser.terminateApp("com.instagram.android", { timeout: 1000 });
+      await browser.activateApp("com.instagram.android");
+
+      console.log("App reset to initial state");
+    } catch (error) {
+      console.error("Error during app reset:", error);
+    }
+  },
   // =====
   // WebdriverIO provides several hooks you can use to interfere with the test process in order to enhance
   // it and to build services around it. You can either apply a single function or an array of

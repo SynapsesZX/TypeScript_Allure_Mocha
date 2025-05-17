@@ -5,6 +5,9 @@ import Page from "./page";
 const locators = {
   createNewAccountButton:
     '//android.view.View[@content-desc="Create new account"]',
+
+  loginFromAnotherAccountButton:
+    'android=new UiSelector().description("Log into another account")',
   usernameInputField:
     '//android.widget.FrameLayout[@resource-id="com.instagram.android:id/layout_container_main"]/android.widget.FrameLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText',
   passwordInputField:
@@ -14,42 +17,55 @@ const locators = {
   passwordPlaceholder: '//android.view.View[@content-desc="Password"]',
   mobileNumberInputField:
     'android=new UiSelector().className("android.widget.EditText")',
+  loginButton: 'android=new UiSelector().description("Log in")',
+  cantFindAccountLabel: 'android=new UiSelector().text("Can\'t find account")',
+  noAccountFoundLabel: 'android=new UiSelector().text("No account found")',
 };
 
 class LoginPage extends Page {
-  public async clickCreateNewAccountButton(): Promise<void> {
-    const button = $(locators.createNewAccountButton);
-    await button.waitForDisplayed({ timeout: 10000 });
-    await button.click();
+  public async clickElement(
+    locator: string,
+    timeout: number = 10000
+  ): Promise<void> {
+    try {
+      const button = $(locator);
+      await button.waitForDisplayed({ timeout });
+      await button.click();
+    } catch (error) {
+      throw new Error(`Cannot click the element: ${locator}. Error: ${error}`);
+    }
   }
 
-  public async enterUserNameInputField(value: string): Promise<void> {
-    const inputField = $(locators.usernameInputField);
-    await inputField.waitForDisplayed({ timeout: 10000 });
-    await inputField.setValue(value);
+  public async enterData(
+    locator: string,
+    value: string,
+    timeout: number = 10000
+  ): Promise<void> {
+    try {
+      const inputField = $(locator);
+      await inputField.waitForDisplayed({ timeout });
+      await inputField.setValue(value);
+    } catch (error) {
+      throw new Error(`Cannot enter the data in: ${locator}. Error: ${error}`);
+    }
   }
 
-  public async enterMobileNumberInputField(value: string): Promise<void> {
-    const inputField = $(locators.mobileNumberInputField);
-    await inputField.waitForDisplayed({ timeout: 10000 });
-    await inputField.setValue(value);
-  }
-
-  public async checkPlaceholder(
+  public async assertAttributeValue(
     locator: string,
     attribute: string,
-    expectedValue: string
+    expectedValue: string,
+    timeout: number = 20000
   ): Promise<void> {
-    const element = $(locator);
-    await element.waitForDisplayed({ timeout: 10000 });
-    const actualValue = await element.getAttribute(attribute);
-    expect(actualValue).toBe(expectedValue);
-  }
-
-  public async enterPaswwordInputField(value: string): Promise<void> {
-    const inputField = $(locators.passwordInputField);
-    await inputField.waitForDisplayed({ timeout: 10000 });
-    await inputField.setValue(value);
+    try {
+      const element = $(locator);
+      await element.waitForDisplayed({ timeout });
+      const actualValue = await element.getAttribute(attribute);
+      expect(actualValue).toBe(expectedValue);
+    } catch (error) {
+      throw new Error(
+        `Failed to assert attribute "${attribute}" on element: ${locator}. Expected: "${expectedValue}". Error: ${error}`
+      );
+    }
   }
 }
 
