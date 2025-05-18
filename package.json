@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "testloginregression": "wdio run wdio.android.conf.ts --mochaOpts.grep='regression'",
+    "testloginregression": "wdio run wdio.android.conf.ts --spec ./test/specs/*.ts --mochaOpts.grep='regression'",
     "allure:generate": "allure generate allure-results --clean -o allure-report",
     "allure:open": "allure open allure-report"
   },

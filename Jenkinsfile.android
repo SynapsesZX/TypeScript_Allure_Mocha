@@ -35,7 +35,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat 'npx wdio run wdio.android.conf.ts'
+                bat 'npm run testloginregression'
             }
         }
 
