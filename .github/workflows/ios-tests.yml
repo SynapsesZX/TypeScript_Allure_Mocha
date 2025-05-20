@@ -23,17 +23,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install Appium
-        run: npm install -g appium
-
-      - name: Install WebDriverAgent dependencies
-        run: |
-          brew install carthage
-          npm install -g ios-deploy
-
-      - name: Install XCUITest Driver for Appium
-        run: appium driver install xcuitest
-
       - name: Start Appium server
         run: |
           appium &
