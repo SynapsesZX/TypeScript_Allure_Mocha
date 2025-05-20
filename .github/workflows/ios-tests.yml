@@ -1,0 +1,41 @@
+name: Run iOS Appium Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ios-tests:
+    runs-on: macos-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Appium
+        run: npm install -g appium
+
+      - name: Install WebdriverAgent dependencies
+        run: |
+          brew install carthage
+          npm install -g ios-deploy
+
+      - name: Run iOS Appium Tests
+        run: npm run testloginregressionios
+
+      - name: Upload Allure results
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results

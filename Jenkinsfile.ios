@@ -1,0 +1,60 @@
+pipeline {
+    agent {
+        label 'mac'  // Убедитесь, что этот агент работает на macOS
+    }
+
+    environment {
+        PATH = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+        // Если Appium установлен глобально и не находится в стандартном PATH, добавьте путь сюда
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/SynapsesZX/TypeScript_Allure_Mocha.git'
+            }
+        }
+
+        stage('Clean Allure Results') {
+            steps {
+                sh 'rm -rf allure-results && mkdir allure-results'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Start iOS Simulator') {
+            steps {
+                // Запуск iOS-симулятора (например, iPhone 14)
+                sh '''
+                    UDID=$(xcrun simctl list devices | grep 'iPhone 14' | grep Booted | awk -F '[()]' '{print $2}')
+                    if [ -z "$UDID" ]; then
+                      UDID=$(xcrun simctl list devices | grep 'iPhone 14' | grep -v unavailable | awk -F '[()]' '{print $2}' | head -n1)
+                      xcrun simctl boot "$UDID"
+                    fi
+                '''
+            }
+        }
+
+        stage('Run iOS Tests with Appium') {
+            steps {
+                // Предполагается, что конфиг WDIO или другой фреймворк уже настроен для iOS
+                sh 'npm run testloginregression'  // или укажите конкретный wdio.ios.conf.ts, если он есть
+            }
+        }
+
+        stage('Publish Reports') {
+            steps {
+                allure([
+                    includeProperties: false,
+                    jdk: '',
+                    results: [[path: 'allure-results']]
+                ])
+            }
+        }
+    }
+}
