@@ -31,6 +31,9 @@ jobs:
           brew install carthage
           npm install -g ios-deploy
 
+      - name: Install XCUITest Driver for Appium
+        run: appium driver install xcuitest
+
       - name: Start Appium server
         run: |
           appium &
