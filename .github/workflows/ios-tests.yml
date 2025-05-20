@@ -18,10 +18,18 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install dependencies
         run: npm install
+
+      - name: Install Appium
+        run: npm install -g appium
+
+      - name: Install WebDriverAgent dependencies
+        run: |
+          brew install carthage
+          npm install -g ios-deploy
 
       - name: Start Appium server
         run: |
