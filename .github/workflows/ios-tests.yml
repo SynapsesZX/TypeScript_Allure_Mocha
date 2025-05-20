@@ -34,9 +34,10 @@ jobs:
       - name: Install XCUITest Driver for Appium
         run: appium driver install xcuitest
 
-      - name: Start Appium server
-        run: |
-          appium &
+      # This step is now removed because Appium is already running manually
+      # - name: Start Appium server
+      #   run: |
+      #     appium &
 
       - name: Run iOS Appium Tests on Real Device
         run: |
