@@ -1,4 +1,4 @@
-name: Run iOS Appium Tests
+name: Run iOS Appium Tests on Real Device
 
 on:
   push:
@@ -31,8 +31,14 @@ jobs:
           brew install carthage
           npm install -g ios-deploy
 
-      - name: Run iOS Appium Tests
-        run: npm run testloginregressionios
+      - name: Start Appium server
+        run: |
+          appium &
+
+      - name: Run iOS Appium Tests on Real Device
+        run: |
+
+          npm run testloginregressionios
 
       - name: Upload Allure results
         uses: actions/upload-artifact@v4
