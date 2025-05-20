@@ -4,10 +4,12 @@ export const config: WebdriverIO.Config = {
   // Runner Configuration
   // ====================
   // WebdriverIO supports running e2e tests as well as unit and component tests.
-  runner: "local",
-  tsConfigPath: "./tsconfig.json",
-  hostname: "172.16.0.2",
+  runner: 'local',
+  tsConfigPath: './tsconfig.json',
+
+  hostname: '192.168.0.106',
   port: 4723,
+  path: '/',
 
   //
   // ==================
@@ -24,7 +26,7 @@ export const config: WebdriverIO.Config = {
   // The path of the spec files will be resolved relative from the directory of
   // of the config file unless it's absolute.
   //
-  specs: ["./test/**/specs/**/*.ts"],
+  specs: ['./test/**/specs/**/*.ts'],
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
@@ -54,11 +56,11 @@ export const config: WebdriverIO.Config = {
   capabilities: [
     {
       // capabilities for local Appium web tests on an Android Emulator
-      platformName: "Android",
-      "appium:deviceName": "988e5036485152374c",
-      "appium:platformVersion": "9",
-      "appium:automationName": "UiAutomator2",
-      "appium:appPackage": "com.instagram.android",
+      platformName: 'Android',
+      'appium:deviceName': '988e5036485152374c',
+      'appium:platformVersion': '9',
+      'appium:automationName': 'UiAutomator2',
+      'appium:appPackage': 'com.instagram.android',
     },
   ],
 
@@ -69,7 +71,7 @@ export const config: WebdriverIO.Config = {
   // Define all options that are relevant for the WebdriverIO instance here
   //
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: "info",
+  logLevel: 'info',
   //
   // Set specific log levels per logger
   // loggers:
@@ -117,7 +119,7 @@ export const config: WebdriverIO.Config = {
   //
   // Make sure you have the wdio adapter package for the specific framework installed
   // before running any tests.
-  framework: "mocha",
+  framework: 'mocha',
 
   //
   // The number of times to retry the entire specfile when it fails as a whole
@@ -133,11 +135,11 @@ export const config: WebdriverIO.Config = {
   // The only one supported by default is 'dot'
   // see also: https://webdriver.io/docs/dot-reporter
   reporters: [
-    "spec",
+    'spec',
     [
-      "allure",
+      'allure',
       {
-        outputDir: "allure-results",
+        outputDir: 'allure-results',
         disableWebdriverStepsReporting: false,
         disableWebdriverScreenshotsReporting: false,
       },
@@ -147,7 +149,7 @@ export const config: WebdriverIO.Config = {
   // Options to be passed to Mocha.
   // See the full list at http://mochajs.org/
   mochaOpts: {
-    ui: "bdd",
+    ui: 'bdd',
     timeout: 60000,
   },
 
@@ -156,12 +158,12 @@ export const config: WebdriverIO.Config = {
 
   afterTest: async function (): Promise<void> {
     try {
-      await browser.terminateApp("com.instagram.android", { timeout: 1000 });
-      await browser.activateApp("com.instagram.android");
+      await browser.terminateApp('com.instagram.android', { timeout: 1000 });
+      await browser.activateApp('com.instagram.android');
 
-      console.log("App reset to initial state");
+      console.log('App reset to initial state');
     } catch (error) {
-      console.error("Error during app reset:", error);
+      console.error('Error during app reset:', error);
     }
   },
   // =====
