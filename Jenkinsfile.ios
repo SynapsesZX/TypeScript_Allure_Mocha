@@ -40,7 +40,7 @@ pipeline {
 
         stage('Publish Results') {
             steps {
-                echo '📄 Publishing results...'
+                echo '📄 Publishing JUnit results...'
                 junit 'reports/junit/*.xml'
             }
         }
@@ -48,7 +48,7 @@ pipeline {
 
     post {
         always {
-            node {
+            script {
                 echo '🧹 Cleaning up...'
                 sh 'killall node || true'
             }
