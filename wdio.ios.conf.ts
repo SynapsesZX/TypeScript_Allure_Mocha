@@ -19,6 +19,8 @@ export const config: WebdriverIO.Config = {
       'appium:automationName': 'XCUITest',
       'appium:udid': '00008101-001C29560E45001E',
       'appium:bundleId': 'com.burbn.instagram',
+      'appium:language': 'en',
+      'appium:locale': 'en_US',
     },
   ],
 
@@ -45,6 +47,15 @@ export const config: WebdriverIO.Config = {
   mochaOpts: {
     ui: 'bdd',
     timeout: 60000,
+  },
+
+  onPrepare: function () {
+    console.log('🚀 Test is starting...');
+  },
+
+  beforeSession: function (config, capabilities, specs) {
+    console.log('📋 Capabilities in Jenkins:');
+    console.log(JSON.stringify(capabilities, null, 2));
   },
 
   afterTest: async function () {
