@@ -38,6 +38,13 @@ pipeline {
             }
         }
 
+        stage('Clean JUnit Reports') {
+            steps {
+                echo '🧹 Cleaning previous JUnit reports...'
+                sh 'rm -f reports/junit/*.xml || true'
+            }
+        }
+
         stage('Run iOS Tests') {
             steps {
                 echo '🧪 Running tests...'

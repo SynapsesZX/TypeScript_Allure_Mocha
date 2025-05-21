@@ -25,6 +25,7 @@
     "allure-commandline": "^2.34.0",
     "appium-uiautomator2-driver": "^4.2.3",
     "eslint": "^9.27.0",
+    "globby": "^14.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
     "wdio-junit-reporter": "^0.4.4",
