@@ -24,6 +24,13 @@ pipeline {
             }
         }
 
+        stage('Install Appium') {
+            steps {
+                echo '⚙️ Installing Appium globally...'
+                sh 'npm install -g appium'
+            }
+        }
+
         stage('Start Appium') {
             steps {
                 echo '🚀 Starting Appium...'
@@ -34,7 +41,7 @@ pipeline {
         stage('Run iOS Tests') {
             steps {
                 echo '🧪 Running tests...'
-                sh 'npx wdio run testloginregressionios'
+                sh 'npx wdio run path/to/wdio.ios.conf.ts'
             }
         }
 
