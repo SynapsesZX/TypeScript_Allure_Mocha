@@ -15,7 +15,7 @@ describe('Instagram Login Screen ', () => {
     const loginPlaceholder = browser.isAndroid
       ? 'Username, email or mobile number'
       : 'Username, email address or mobile number';
-    const errorHint = browser.isAndroid ? 'No account found' : 'Unable to log in';
+    const errorHint = browser.isAndroid ? 'No account found' : 'No account found';
     await loginpage.clickElement('loginFromAnotherAccountButton');
     await loginpage.assertAttributeValue('loginPlaceholder', loginPlaceholder, 10000);
     await loginpage.enterData('usernameInputField', 'e');

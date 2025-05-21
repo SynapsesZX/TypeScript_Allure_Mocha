@@ -27,8 +27,8 @@ const locators: Locators = {
     passwordPlaceholder: '~Password',
     mobileNumberInputField: 'skip',
     loginButton: '~Log in',
-    cantFindAccountLabel: '//XCUIElementTypeStaticText[@name="Unable to log in"]',
-    noAccountFoundLabel: '//XCUIElementTypeStaticText[@name="Unable to log in"]',
+    cantFindAccountLabel: '//XCUIElementTypeStaticText[@name="No account found"]',
+    noAccountFoundLabel: '//XCUIElementTypeStaticText[@name="No account found"]',
   },
 };
 
