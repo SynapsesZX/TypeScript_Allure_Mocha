@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        NODE_VERSION = '20'
+        NODE_VERSION = '24'
     }
 
     tools {
@@ -24,23 +24,23 @@ pipeline {
             }
         }
 
-        stage('Run Appium Server') {
+        stage('Start Appium') {
             steps {
-                echo '🚀 Starting Appium server...'
+                echo '🚀 Starting Appium...'
                 sh 'appium & sleep 5'
             }
         }
 
         stage('Run iOS Tests') {
             steps {
-                echo '🧪 Running WebdriverIO tests...'
-                sh 'npx wdio run testloginregressionios'
+                echo '🧪 Running tests...'
+                sh 'npx wdio run wdio.conf.ts'
             }
         }
 
-        stage('Publish Test Results') {
+        stage('Publish Results') {
             steps {
-                echo '📄 Publishing JUnit test results...'
+                echo '📄 Publishing results...'
                 junit 'reports/junit/*.xml'
             }
         }
@@ -48,8 +48,10 @@ pipeline {
 
     post {
         always {
-            echo '🧹 Cleaning up...'
-            sh 'killall node || true'
+            node {
+                echo '🧹 Cleaning up...'
+                sh 'killall node || true'
+            }
         }
         success {
             echo '✅ Tests passed!'
