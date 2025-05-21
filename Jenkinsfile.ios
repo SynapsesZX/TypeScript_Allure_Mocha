@@ -41,7 +41,7 @@ pipeline {
         stage('Run iOS Tests') {
             steps {
                 echo '🧪 Running tests...'
-                sh 'npx wdio run path/to/wdio.ios.conf.ts'
+                sh 'npx wdio run ./wdio.ios.conf.ts'
             }
         }
 
