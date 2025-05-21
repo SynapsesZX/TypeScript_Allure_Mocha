@@ -1,60 +1,61 @@
 pipeline {
-    agent {
-        label 'mac'  // Убедитесь, что этот агент работает на macOS
-    }
+    agent any
 
     environment {
-        PATH = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
-        // Если Appium установлен глобально и не находится в стандартном PATH, добавьте путь сюда
+        NODE_VERSION = '20'
+    }
+
+    tools {
+        nodejs "${NODE_VERSION}"
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/SynapsesZX/TypeScript_Allure_Mocha.git'
+                echo '🛎️ Checking out code...'
+                checkout scm
             }
         }
 
-        stage('Clean Allure Results') {
+        stage('Install dependencies') {
             steps {
-                sh 'rm -rf allure-results && mkdir allure-results'
+                echo '📦 Installing npm packages...'
+                sh 'npm ci'
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Run Appium Server') {
             steps {
-                sh 'npm install'
+                echo '🚀 Starting Appium server...'
+                sh 'appium & sleep 5'
             }
         }
 
-        stage('Start iOS Simulator') {
+        stage('Run iOS Tests') {
             steps {
-                // Запуск iOS-симулятора (например, iPhone 14)
-                sh '''
-                    UDID=$(xcrun simctl list devices | grep 'iPhone 14' | grep Booted | awk -F '[()]' '{print $2}')
-                    if [ -z "$UDID" ]; then
-                      UDID=$(xcrun simctl list devices | grep 'iPhone 14' | grep -v unavailable | awk -F '[()]' '{print $2}' | head -n1)
-                      xcrun simctl boot "$UDID"
-                    fi
-                '''
+                echo '🧪 Running WebdriverIO tests...'
+                sh 'npx wdio run testloginregressionios'
             }
         }
 
-        stage('Run iOS Tests with Appium') {
+        stage('Publish Test Results') {
             steps {
-                // Предполагается, что конфиг WDIO или другой фреймворк уже настроен для iOS
-                sh 'npm run testloginregression'  // или укажите конкретный wdio.ios.conf.ts, если он есть
+                echo '📄 Publishing JUnit test results...'
+                junit 'reports/junit/*.xml'
             }
         }
+    }
 
-        stage('Publish Reports') {
-            steps {
-                allure([
-                    includeProperties: false,
-                    jdk: '',
-                    results: [[path: 'allure-results']]
-                ])
-            }
+    post {
+        always {
+            echo '🧹 Cleaning up...'
+            sh 'killall node || true'
+        }
+        success {
+            echo '✅ Tests passed!'
+        }
+        failure {
+            echo '❌ Tests failed!'
         }
     }
 }

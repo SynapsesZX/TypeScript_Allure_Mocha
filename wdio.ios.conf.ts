@@ -31,13 +31,13 @@ export const config: WebdriverIO.Config = {
   framework: 'mocha',
 
   reporters: [
-    'spec',
     [
-      'allure',
+      'junit',
       {
-        outputDir: 'allure-results',
-        disableWebdriverStepsReporting: false,
-        disableWebdriverScreenshotsReporting: false,
+        outputDir: './reports/junit',
+        outputFileFormat: function (options) {
+          return `results-${options.cid}.xml`;
+        },
       },
     ],
   ],
